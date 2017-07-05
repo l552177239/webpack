@@ -39,4 +39,37 @@ npm i serve -g
 serve [文件名]
 ```
 
+### 安装webpack：
 
+```
+npm install webpack --save-dev
+```
+
+### 检测是否安装成功：
+
+```
+./node_modules/.bin/webpack --help
+```
+
+### 创建webpack.config.js
+
+webpack的配置文件
+
+```
+const path = require('path');
+//path是nodejs核心文件，用来解析路径
+//require会把入口文件相关的所有文件都打包
+module.exports = {
+   entry: './src/index.js',
+   //入口文件（打包相关文件）
+   output: {
+    //出口文件（打包到哪里）
+    path: path.resolve(__dirname, "build"),
+     //path：放在哪个文件夹
+     //path.resolve：进行拼接
+     //__dirname：命令行位置
+    filename: "bundle.[hash:5].js",
+    //文件名
+  }
+}
+```
