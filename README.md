@@ -153,7 +153,8 @@ npm install --save-dev babel-preset-stage-0
 
 #### 检查是否安装正确
 
-修改src -> index.js
+##### 修改src -> index.js
+
 ```
 let obj = {
   name:'Liu',
@@ -208,7 +209,8 @@ npm i babel-preset-react -D
 
 #### 检查是否能启动React项目
 
-修改src -> index.js
+##### 修改src -> index.js
+
 ```
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -261,7 +263,8 @@ npm install --save-dev css-loader style-loader
 
 #### 检查是否能启动React项目
 
-修改src -> index.js
+##### 修改src -> index.js
+
 ```
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -270,7 +273,7 @@ import './index.css'
 ReactDOM.render(<h1>我是H1</h1>,document.getElementById('root'))
 ```
 
-创建src -> `index.css`文件将下面代码放入
+##### 创建src -> `index.css`文件将下面代码放入
 
 ```
 *{
@@ -313,14 +316,15 @@ npm i postcss-loader -D
 
 #### CSS兼容
 
-装包
+##### 装包
+
 ```
 npm i -D autoprefixer cssnano
 //autoprefixer：兼容css包
 //cssnano：压缩css包
 ```
 
-创建`postcss`的配置文件`postcss.config.js`
+##### 创建`postcss`的配置文件`postcss.config.js`
 
 ```
 module.exports = {
@@ -396,7 +400,7 @@ npm run build
 
 ### 压缩`JS`
 
-添加配置文件
+#### 在`webpack.config.js`中引用`webpack`
 
 ```
 const webpack = require('webpack')
@@ -404,7 +408,7 @@ const webpack = require('webpack')
 //require会把入口文件相关的所有文件都打包
 ```
 
-添加`plugins`
+#### 在`webpack.config.js`的`plugins`中添加
 
 ```
 plugins: [
@@ -425,4 +429,106 @@ plugins: [
 new webpack.DefinePlugin({
   'process.env.NODE_ENV': '"production"',
 })
+//生产文件会导致source-map失效
 ```
+
+### CSS代码分离
+
+会把CSS单独打包出来
+
+#### 装包
+
+```
+npm install --save-dev extract-text-webpack-plugin
+```
+
+#### 在`webpack.config.js`中引用`extract-text-webpack-plugin`
+
+```
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+```
+
+#### 在`webpack.config.js`中添加`test`
+
+```
+{
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: "style-loader",
+    use: ["css-loader","postcss-loader"]
+  })
+}
+```
+
+**注意**：把之前写的CSS的`test`删除
+
+#### 在`webpack.config.js`中添加插件（plugins）
+
+```
+new ExtractTextPlugin("styles.css"),
+//添加生产文件
+```
+
+### HTML代码分离
+
+#### 装包
+
+```
+npm i html-webpack-plugin -D
+```
+
+#### 在`webpack.config.js`中引用`html-webpack-plugin`
+
+```
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+```
+
+#### 在`webpack.config.js`中添加`test`
+
+```
+{
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: "style-loader",
+    use: "css-loader"
+  })
+}
+```
+
+#### 在`webpack.config.js`中添加插件(plugins)
+
+```
+new HtmlWebpackPlugin(),
+//把publicPath删除，因为打包时自动生成路径
+```
+
+#### 给`HtmlWebpackPlugin`增加一个模版文件
+
+##### 创建`public` -> `index.html`
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Webpack</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
+```
+
+##### 在`webpack.config.js`中修改插件(plugins)`HtmlWebpackPlugin`
+
+```
+new HtmlWebpackPlugin({
+  template: 'public/index.html',
+  //模版文件地址
+  filename: 'index.html',
+  //生产的html文件名（默认为index.html）
+  //可以添加其他的配置选项，例如：title，minify，filename
+}),
+```
+
+所有的配置选项的github地址：[点击进入](https://github.com/jantimon/html-webpack-plugin#configuration)
