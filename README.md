@@ -532,3 +532,33 @@ new HtmlWebpackPlugin({
 ```
 
 所有的配置选项的github地址：[点击进入](https://github.com/jantimon/html-webpack-plugin#configuration)
+
+### 优化
+
+#### 修改`webpack.config.js`名称为`webpack.prod.config.js`
+
+#### 修改`package.json`的`npm run`命令
+
+```
+"scripts": {
+    "build": "./node_modules/.bin/webpack --config webpack.prod.config.js",
+    //添加配置文件
+    "start": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js"
+    //添加启动的服务
+  },
+```
+
+
+### 完成开发环境的配置
+
+#### 装包（实时加载）
+
+```
+npm install --save-dev webpack-dev-server
+```
+
+#### 创建`webpack.dev.config.js`配置文件
+
+```
+
+```
