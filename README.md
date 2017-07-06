@@ -6,6 +6,12 @@
 mkdir webpack && cd webpack
 ```
 
+### 在webpack中创建一个src -> index.js
+
+```
+mkdir src && touch src/index.js
+```
+
 ### 初始化项目：
 
 npm init这会提示你关于项目的更多细节，并创建一个 package.json 文件。
@@ -18,19 +24,11 @@ npm init -y
 
 **注意**：项目名不要和包名相同，否则可能会出错误。
 
-### 修改Webpack -> package.json项目名
+### 如果项目名和包名相同，修改Webpack -> package.json项目名
 
 因为项目名与包名相同，所以修改项目名
 ```
 "name": "webpack-demo",
-```
-
-### 安装serve：
-
-一个开发服务器，方便我们进行测试
-
-```
-npm i serve -g
 ```
 
 创建一个`index.html`，将下面代码放入
@@ -40,13 +38,21 @@ npm i serve -g
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Webpack</title>
 </head>
 <body>
   <div id="root"></div>
   <script src='dist/bundle.js'></script>
 </body>
 </html>
+```
+
+### 安装serve：
+
+一个开发服务器，方便我们进行测试
+
+```
+npm i serve -g
 ```
 
 需要启动服务器时，`serve`会自动寻找`index.html`，如果文件名为其他需输入文件名
@@ -151,9 +157,9 @@ npm install --save-dev babel-preset-stage-0
 },
 ```
 
-#### 检查是否安装正确
+### 检查是否安装正确
 
-##### 修改src -> index.js
+#### 修改src -> index.js
 
 ```
 let obj = {
@@ -165,22 +171,25 @@ let {age} = obj
 alert(age)
 ```
 
-运行
+#### 运行
+
 ```
 npm run build
 ```
 
-在webpack下运行
+#### 在webpack下运行
+
 ```
 serve .
 ```
 
-打开本地服务器
+#### 打开本地服务器
+
 ```
 localhost:5000
 ```
 
-弹出对话框`24`说明安装成功
+如果弹出对话框`24`说明安装成功
 
 ### 安装react包
 
@@ -207,9 +216,9 @@ npm i babel-preset-react -D
 }
 ```
 
-#### 检查是否能启动React项目
+### 检查是否能启动React项目
 
-##### 修改src -> index.js
+#### 修改src -> index.js
 
 ```
 import React from 'react'
@@ -226,22 +235,25 @@ alert(age)
 ReactDOM.render(<h1>{age}</h1>,document.getElementById('root'))
 ```
 
-运行
+#### 运行
+
 ```
 npm run build
 ```
 
-在webpack下运行
+#### 在webpack下运行
+
 ```
 serve .
 ```
 
-打开本地服务器
+#### 打开本地服务器
+
 ```
 localhost:5000
 ```
 
-弹出对话框`24`说明安装成功
+如果弹出对话框`24`说明安装成功
 
 ###安装CSS包
 
