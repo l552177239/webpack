@@ -58,7 +58,7 @@ serve [文件名]
 ### 安装webpack：
 
 ```
-npm install webpack --save-dev
+npm install webpack@2.6.1 --save-dev
 ```
 
 ### 检测是否安装成功：
@@ -84,7 +84,7 @@ module.exports = {
      //path：放在哪个文件夹
      //path.resolve：进行拼接
      //__dirname：命令行位置
-    filename: "bundle.[hash:5].js",
+    filename: "bundle.js",
     //文件名
   }
 }
@@ -141,6 +141,16 @@ npm install --save-dev babel-preset-stage-0
 }
 ```
 
+#### 设置`npm package`快捷打包方式
+
+修改`packageage.json`，设置一个命令`npm run [名称]`来启动这个打包工具
+
+```
+"scripts": {
+  "build": "./node_modules/.bin/webpack"
+},
+```
+
 #### 检查是否安装正确
 
 修改src -> index.js
@@ -166,7 +176,7 @@ serve .
 
 打开本地服务器
 ```
-localhost:50000
+localhost:5000
 ```
 
 弹出对话框`24`说明安装成功
@@ -226,7 +236,7 @@ serve .
 
 打开本地服务器
 ```
-localhost:50000
+localhost:5000
 ```
 
 弹出对话框`24`说明安装成功
@@ -244,9 +254,8 @@ npm install --save-dev css-loader style-loader
   test: /\.css$/,
   //test测试
   use: ["style-loader","css-loader"]
-    //use使用style-loader和css-loader编译css
-    //先使用后面的css-loader再使用前面的style-loader进行编译
-  })
+  //use使用style-loader和css-loader编译css
+  //先使用后面的css-loader再使用前面的style-loader进行编译
 }
 ```
 
@@ -261,7 +270,7 @@ import './index.css'
 ReactDOM.render(<h1>我是H1</h1>,document.getElementById('root'))
 ```
 
-创建`index.css`文件将下面代码放入
+创建src -> `index.css`文件将下面代码放入
 
 ```
 *{
@@ -373,4 +382,47 @@ publicPath:"dist/"
 
 ```
 npm run build
+```
+
+#### 优化图片的`test`
+
+在`webpack.config.js`中添加`test`
+
+```
+{ test: /\.(jpe?g|png)$/, use: 'file-loader?name=[name][hash:5].[ext]&outputPath=images/' }
+//name=[name][hash:5].[ext]：自动添加名称哈希值和后缀
+//outputPath：图片文件会自动保存在imgages文件夹下
+```
+
+### 压缩`JS`
+
+添加配置文件
+
+```
+const webpack = require('webpack')
+//path是nodejs核心文件，用来解析路径
+//require会把入口文件相关的所有文件都打包
+```
+
+添加`plugins`
+
+```
+plugins: [
+  new webpack.optimize.UglifyJsPlugin({
+    compress: {
+      warnings: false,
+      drop_console: false,
+    }
+  })
+]
+```
+
+### 压缩代码
+
+添加在`plugins`中
+
+```
+new webpack.DefinePlugin({
+  'process.env.NODE_ENV': '"production"',
+})
 ```
