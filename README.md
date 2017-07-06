@@ -544,10 +544,9 @@ new HtmlWebpackPlugin({
     "build": "./node_modules/.bin/webpack --config webpack.prod.config.js",
     //添加配置文件
     "start": "./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js"
-    //添加启动的服务
+    //添加启动的服务器
   },
 ```
-
 
 ### 完成开发环境的配置
 
@@ -559,6 +558,82 @@ npm install --save-dev webpack-dev-server
 
 #### 创建`webpack.dev.config.js`配置文件
 
+黏贴下面代码（webpack.prod.config.js中代码修改）
+
+```
+const path = require('path');
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+    // publicPath:"dist/"
+  },
+  devtool:"source-map",
+  module: {
+    rules: [
+      { test: /\.js[x]?$/, exclude: /node_modules/, use: "babel-loader" },
+      { test: /\.css$/, use: ['style-loader',"css-loader",'postcss-loader'] },
+      { test: /\.(jpe?g|png)$/, use: 'file-loader' },
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'public/index.html'
+    }),
+  ]
+}
 ```
 
+#### 添加配置`webpack.dev.config.js`的模块(module)下
+
+```
+devServer: {
+    port: 3000,
+    //端口修改为3000
+    hot:true
+    //热加载
+  },
+```
+
+##### 热加载还需要配置`webpack.dev.config.js`的插件(Plugins)
+
+添加热加载插件
+
+```
+new webpack.HotModuleReplacementPlugin()
+```
+
+### 自动打开
+
+#### 装包
+
+```
+npm i open-browser-webpack-plugin -D
+```
+
+在`webpack.dev.config.js`中引用`open-browser-webpack-plugin`插件
+
+```
+const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin')
+```
+
+#### 添加`webpack.dev.config.js`的插件(Plugins)
+
+```
+new OpenBrowserWebpackPlugin({
+  //自动打开插件
+  url:'http://localhost:3000'
+  //自动打开的地址
+}),
+```
+
+#### 检测是否成功
+
+```
+npm start
+//npm run start
 ```
