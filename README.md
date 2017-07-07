@@ -86,13 +86,15 @@ module.exports = {
    //入口文件（打包相关文件）
    output: {
     //出口文件（打包到哪里）
-    path: path.resolve(__dirname, "build"),
+    //path: path.resolve(__dirname, "build"),
      //path：放在哪个文件夹
      //path.resolve：进行拼接
      //__dirname：命令行位置
     filename: "bundle.js",
     //文件名
-  }
+    publicPath:'/'
+    //公共路径
+  }
 }
 ```
 
