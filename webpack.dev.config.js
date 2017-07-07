@@ -4,11 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin')
 
 module.exports = {
-	entry: './src/index.js',
-	output: {
-    path: path.resolve(__dirname, "dist"),
+  entry: './src/index.js',
+  output: {
     filename: "bundle.js",
-    // publicPath:"dist/"
+    publicPath:"/",
   },
   devServer: {
     port: 3000,
