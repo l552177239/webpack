@@ -649,3 +649,7 @@ new OpenBrowserWebpackPlugin({
 npm start
 //npm run start
 ```
+
+### 参考
+
+ - Webpack官网：[点击进入](https://doc.webpack-china.org/)
