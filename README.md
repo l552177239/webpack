@@ -1,4 +1,4 @@
-<img src="http://image.lxway.com/upload/5/0b/50b2ef65506932bded9e6f2490b74600_thumb.png" alt="webpack" />
+<img src="http://images2015.cnblogs.com/blog/984198/201606/984198-20160630154536593-338992733.png" alt="webpack" />
 
 ## Webpack环境配置  
 
