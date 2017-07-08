@@ -1,3 +1,5 @@
+<img src="http://image.lxway.com/upload/5/0b/50b2ef65506932bded9e6f2490b74600_thumb.png" alt="webpack" />
+
 ## Webpack环境配置  
 
 ### 创建并进入一个文件夹wepback:
